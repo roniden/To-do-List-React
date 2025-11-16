@@ -20,9 +20,19 @@ function App() {
     },
   ]);
 
-  const [title, setTitle] = useState("")
+  const [title, setTitle] = useState("");
 
-  const [description, setDescription] = useState("")
+  const [description, setDescription] = useState("");
+
+  function onAddTask(title: string, description: string) {
+    const newTask: Task = {
+      id: uuidv4(),
+      title,
+      description,
+      isCompleted: false,
+    };
+    setTasks([...tasks, newTask]);
+  }
 
   return (
     <>
@@ -35,8 +45,8 @@ function App() {
             <input
               type="text"
               value={title}
-              onChange={(e)=>{
-                setTitle(e.target.value)
+              onChange={(e) => {
+                setTitle(e.target.value);
               }}
               className="border border-white text-white text-[14px] focus:outline-none focus:ring-1 focus:ring-white rounded-md p-1 w-85 font-[Inter]"
               placeholder="Digite o título da tarefa"
@@ -44,8 +54,8 @@ function App() {
             <input
               type="text"
               value={description}
-              onChange={(e)=>{
-                setDescription(e.target.value)
+              onChange={(e) => {
+                setDescription(e.target.value);
               }}
               className="border border-white text-white text-[14px] focus:outline-none focus:ring-1 focus:ring-white rounded-md p-1 w-85 font-[Inter]"
               placeholder="Digite a descrição da tarefa"
@@ -54,6 +64,10 @@ function App() {
               type="submit"
               value="Adicionar"
               className="border rounded-lg cursor-pointer w-85 bg-white font-bold font-[Inter] text-[14px] p-1 border-none shadow-md"
+              onClick={(e: React.MouseEvent<HTMLInputElement>) => {
+                e.preventDefault();
+                onAddTask(title, description);
+              }}
             />
           </form>
         </div>
